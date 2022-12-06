@@ -1,0 +1,1102 @@
+import React, { Component } from 'react';
+import { AppRegistry, Text, View, StyleSheet, Image, TextInput, ImageBackground, TouchableHighlight, Alert, Dimensions, ScrollView } from 'react-native';
+import Constants from 'expo-constants';
+
+let deviceHeight = Dimensions.get('window').height;
+let deviceWidth = Dimensions.get('window').width;
+
+export default class App extends Component {
+    
+    state = {
+        entree: '',
+        side: '',
+        drink: '',
+        sauce: '',
+        dessert: '',
+        none: '',
+        entreePrice: 0,
+        sidePrice: 0,
+        drinkPrice: 0,
+        dessertPrice: 0,
+        entreePic: '',
+        sidePic: '',
+        drinkPic: '',
+        saucePic: '',
+        dessertPic: '',
+        total: 0,
+        tax: 0,
+        delivery: 0,
+        menuScreen: 'block',
+        entreeScreen: 'none',
+        saladScreen: 'none',
+        sideScreen: 'none',
+        drinkScreen: 'none',
+        sauceScreen: 'none',
+        dessertScreen: 'none',
+        cartScreen: 'none',
+        orderScreen: 'none',
+    }
+   
+    handleMenuPagePress=()=> this.setState(state => ({
+        menuScreen: 'block',
+        orderScreen: 'none',
+        total: 0,
+        tax: 0,
+        entree: '',
+        side: '',
+        drink: '',
+        sauce: '',
+        dessert: '',
+    }));
+   
+    handleEntreePagePress=()=> this.setState(state => ({
+        menuScreen: 'none',
+        entreeScreen: 'block',
+    }));
+    
+    handleSaladPagePress=()=> this.setState(state => ({
+        entreeScreen: 'none',
+        saladScreen: 'block',
+    }));
+    
+    handleSidePagePress=()=> this.setState(state => ({
+        saladScreen: 'none',
+        sideScreen: 'block',
+    }));
+    
+    handleDrinkPagePress=()=> this.setState(state => ({
+        sideScreen: 'none',
+        drinkScreen: 'block',
+    }));
+    
+    handleSaucePagePress=()=> this.setState(state => ({
+        drinkScreen: 'none',
+        sauceScreen: 'block',
+    }));
+    
+    handleDessertPagePress=()=> this.setState(state => ({
+        sauceScreen: 'none',
+        dessertScreen: 'block',
+    }));
+    
+    handleCartPagePress=()=> this.setState(state => ({
+        dessertScreen: 'none',
+        cartScreen: 'block',
+    }));
+    
+    handleOrderPagePress=()=> this.setState(state => ({
+        cartScreen: 'none',
+        orderScreen: 'block',
+    }));
+    
+    entreePick = (pick) => {
+        if(pick == 'burger'){
+        this.setState({
+           entree: 'Burger: ',
+           entreePic: 'https://s7d1.scene7.com/is/image/mcdonalds/t-mcdonalds-qpc-deluxe-burger:1-4-product-tile-desktop',
+           total: this.state.total + 3.49,
+           entreeScreen: 'none',
+           sideScreen: 'block',
+        });
+    } else if(pick == 'chicken sandwich'){
+        this.setState({
+           entree: 'Chicken Sandwich: ',
+           entreePic: 'http://cdn.shopify.com/s/files/1/0580/3245/5858/products/Spicy-Chicken-sandwich.jpg?v=1635460820',
+           total: this.state.total + 2.05,
+           entreeScreen: 'none',
+           sideScreen: 'block',
+        });
+    } else if(pick == 'chicken tenders'){
+        this.setState({
+           entree: 'Chicken Tenders: ',
+           entreePic: 'https://www.healthyseasonalrecipes.com/wp-content/uploads/2016/01/healthy-baked-chicken-tenders-22-7.jpg',
+           total: this.state.total + 3.39,
+           entreeScreen: 'none',
+           sideScreen: 'block',
+        });
+    } else if(pick == 'salad'){
+        this.setState({
+           entreeScreen: 'none',
+           saladScreen: 'block',
+        });
+    }
+    }
+    
+    saladPick = (pick) => {
+        if(pick == 'greek'){
+        this.setState({
+           entree: 'Greek Salad: ',
+           entreePic: 'https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2018/08/Greek-Salad.jpg',
+           total: this.state.total + 6.59,
+           saladScreen: 'none',
+           sideScreen: 'block',
+        });
+    } else if(pick == 'caesar'){
+        this.setState({
+           entree: 'Caesar Salad: ',
+           entreePic: 'https://www.thespruceeats.com/thmb/Z6IWF7c9zywuU9maSIimGLbHoI4=/3000x2000/filters:fill(auto,1)/classic-caesar-salad-recipe-996054-Hero_01-33c94cc8b8e841ee8f2a815816a0af95.jpg',
+           total: this.state.total + 5.39,
+           saladScreen: 'none',
+           sideScreen: 'block',
+        });
+    } else if(pick == 'wedge'){
+        this.setState({
+           entree: 'Wedge Salad: ',
+           entreePic: 'https://tastesbetterfromscratch.com/wp-content/uploads/2020/08/Classic-Wedge-Salad-Square.jpg',
+           total: this.state.total + 5.75,
+           saladScreen: 'none',
+           sideScreen: 'block',
+        });
+    } else if(pick == 'cobb'){
+        this.setState({
+           entree:'Cobb Salad: ',
+           entreePic: 'https://amandascookin.com/wp-content/uploads/2019/08/cobb-salad-680.jpg',
+           total: this.state.total + 6.99,
+           saladScreen: 'none',
+           sideScreen: 'block',
+        });
+    }
+    }
+    
+    sidePick = (pick) => {
+        if(pick == 'fries'){
+        this.setState({
+           side: 'French Fries: ',
+           sidePic: 'https://www.vegrecipesofindia.com/wp-content/uploads/2021/04/french-fries-recipe-3.jpg',
+           total: this.state.total + 1.65,
+           sideScreen: 'none',
+           drinkScreen: 'block',
+        });
+    } else if(pick == 'fruit cup'){
+        this.setState({
+           side: 'Fruit Cup: ',
+           sidePic: 'https://resources.ediblearrangements.com/resources/en-us/i/a/16oz_FruitSalad_PineGrapeHdewStrw_410x4105.jpg',
+           total: this.state.total + 1.85,
+           sideScreen: 'none',
+           drinkScreen: 'block',
+        });
+    } else if(pick == 'tater tots'){
+        this.setState({
+           side: 'Tater Tots: ',
+           sidePic: 'https://recipesfromapantry.com/wp-content/uploads/2021/09/frozen-tater-tots-in-air-fryer-35-of-40.jpg',
+           total: this.state.total + 1.69,
+           sideScreen: 'none',
+           drinkScreen: 'block',
+        });
+    } else if(pick == 'mac n cheese'){
+        this.setState({
+           side: 'Mac \'N Cheese: ',
+           sidePic: 'https://kubrick.htvapps.com/htv-prod-media.s3.amazonaws.com/images/qtmaccheese-1610589971.jpg?crop=1.00xw:0.883xh;0,0.0611xh&resize=1200:*',
+           total: this.state.total + 2.11,
+           sideScreen: 'none',
+           drinkScreen: 'block',
+        });
+    } else if(pick == 'none'){
+        this.setState({
+           side: '',
+           sidePic: '',
+           sideScreen: 'none',
+           drinkScreen: 'block',
+        });
+    }
+    }
+    
+    drinkPick = (pick) => {
+        if(pick == 'water'){
+        this.setState({
+           drink: 'Water: ',
+           drinkPic: 'https://s7d1.scene7.com/is/image/mcdonalds/t-mcdonalds-Dasani-Water:1-3-product-tile-desktop?wid=765&hei=472&dpr=off',
+           total: this.state.total + 0.99,
+           drinkScreen: 'none',
+           sauceScreen: 'block',
+        });
+    } else if(pick == 'soda'){
+        this.setState({
+           drink: 'Coca-Cola: ',
+           drinkPic: 'https://media.officedepot.com/images/f_auto,q_auto,e_sharpen,h_450/products/208206/208206_p/208206',
+           total: this.state.total + 1.29,
+           drinkScreen: 'none',
+           sauceScreen: 'block',
+        });
+    } else if(pick == 'tea'){
+        this.setState({
+           drink: 'Sweet Tea: ',
+           drinkPic: 'https://s7d1.scene7.com/is/image/mcdonalds/t-mcdonalds-Iced-Tea-Large-unsweetened:1-3-product-tile-desktop?wid=765&hei=472&dpr=off',
+           total: this.state.total + 1.39,
+           drinkScreen: 'none',
+           sauceScreen: 'block',
+        });
+    } else if(pick == 'lemonade'){
+        this.setState({
+           drink: 'Lemonade: ',
+           drinkPic: 'https://www.monin.com/media/catalog/product/cache/086f110b92ec89cebc323a4780ab42bd/5/8/584248dd-b3ad-412a-896e-033dd2178314-1.png',
+           total: this.state.total + 1.65,
+           drinkScreen: 'none',
+           sauceScreen: 'block',
+        });
+    }
+    }
+    
+    saucePick = (pick) => {
+        if(pick == 'ketchup'){
+        this.setState({
+           sauce: 'Ketchup: ',
+           saucePic: 'https://cleangreensimple.com/wp-content/uploads/vegan-ketchup-square.jpg',
+           total: this.state.total + 0.50,
+           sauceScreen: 'none',
+           dessertScreen: 'block',
+        });
+    } else if(pick == 'mayo'){
+        this.setState({
+           sauce: 'Mayonaise: ',
+           saucePic: 'https://thumbs.dreamstime.com/b/small-glass-mayonnaise-cup-delicious-mayonnaise-plastic-cup-white-background-177853715.jpg',
+           total: this.state.total + 1.10,
+           sauceScreen: 'none',
+           dessertScreen: 'block',
+        });
+    } else if(pick == 'mustard'){
+        this.setState({
+           sauce: 'Mustard: ',
+           saucePic: 'https://leitesculinaria.com/wp-content/uploads/2021/04/homemade-yellow-mustard-fp.jpg',
+           total: this.state.total + 0.80,
+           sauceScreen: 'none',
+           dessertScreen: 'block',
+        });
+    } else if(pick == 'homemade'){
+        this.setState({
+           sauce: 'Homemade McHuggins Sauce: ',
+           saucePic: 'https://buildyourbite.com/wp-content/uploads/2018/12/chick-fil-a-sauce-2.jpg',
+           total: this.state.total + 1.25,
+           sauceScreen: 'none',
+           dessertScreen: 'block',
+        });
+    } else if(pick == 'none'){
+        this.setState({
+           sauce: '',
+           saucePic: '',
+           sauceScreen: 'none',
+           dessertScreen: 'block',
+        });
+    }
+    }
+    
+    dessertPick = (pick) => {
+        if(pick == 'cookie'){
+        this.setState({
+           dessert: 'Chocolate Chip Cookie: ',
+           dessertPic: 'https://assets.bonappetit.com/photos/5ca534485e96521ff23b382b/5:4/w_3375,h_2700,c_limit/chocolate-chip-cookie.jpg',
+           total: (this.state.total + 1.19).toFixed(2),
+           dessertScreen: 'none',
+           cartScreen: 'block',
+        });
+    } else if(pick == 'ice cream'){
+        this.setState({
+           dessert: 'Vanilla Ice Cream: ',
+           dessertPic: 'https://thumbs.dreamstime.com/b/blank-paper-cup-milk-ice-cream-isolated-over-white-background-43225907.jpg',
+           total: (this.state.total + 1.78).toFixed(2),
+           dessertScreen: 'none',
+           cartScreen: 'block',
+        });
+    } else if(pick == 'none'){
+        this.setState({
+           dessert: '',
+           dessertPic: '',
+           dessertScreen: 'none',
+           cartScreen: 'block',
+        });
+    }
+    if(this.state.total <= 5){
+        this.setState({
+           delivery: 3,
+        });
+    } else if(this.state.total <= 10){
+        this.setState({
+           delivery: 5,
+        });
+    } else if(this.state.total <= 15){
+        this.setState({
+           delivery: 7,
+    });
+    }
+    }
+    
+
+    
+    render() {
+        return (
+            <View style={styles.container}>
+            {/*menu screen*/}
+                    <View style = {{display: this.state.menuScreen}}>
+                    <ImageBackground
+                    style={styles.background}
+                    source={{ uri: 'https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?w=2000' }}
+                >
+                    <View style = {styles.contentContainer1}>
+                <Text style = {styles.title}>
+                McHuggins Delivery App
+                </Text>
+                <View style = {styles.titleBlank}/>
+                <TouchableHighlight style = {styles.buttonBox}
+                onPress={this.handleEntreePagePress}
+                >
+                <Text style = {styles.textInput}>
+                Start
+                </Text>
+                </TouchableHighlight>
+                </View>
+                </ImageBackground>                
+                </View>
+                
+                {/*entree screen*/}
+                    <View style = {{display: this.state.entreeScreen}}>
+                    <ImageBackground
+                    style={styles.background}
+                    source={{ uri: 'https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?w=2000' }}
+                >
+                    <View style = {styles.titleContainer}>
+                    <Text style = {styles.textOption}>
+                    Entree
+                    </Text>
+                    </View>
+                    <View style = {styles.contentContainer2}>
+                <View style = {styles.rowContainer}>
+                <View style = {styles.menuRowContainer}>
+                <TouchableHighlight
+                onPress={() => this.entreePick('burger')}
+                >
+                <View style = {styles.normalBox}>
+                    <Image
+                        source={{ uri: 'https://s7d1.scene7.com/is/image/mcdonalds/t-mcdonalds-qpc-deluxe-burger:1-4-product-tile-desktop' }}
+                        style={{ height: 80, width: 80 }}
+                    />
+                </View>
+                </TouchableHighlight>
+                <Text style = {styles.textTitle}>
+                Burger - $3.49
+                </Text>
+                </View>
+                
+                <View style = {styles.menuRowContainer}>
+                <TouchableHighlight
+                onPress={() => this.entreePick('chicken sandwich')}
+                >
+                <View style = {styles.normalBox}>
+                <Image
+                        source={{ uri: 'http://cdn.shopify.com/s/files/1/0580/3245/5858/products/Spicy-Chicken-sandwich.jpg?v=1635460820' }}
+                        style={{ height: 80, width: 80 }}
+                    />
+                </View>
+                </TouchableHighlight>
+                <Text style = {styles.textTitle}>
+                Chicken Sandwich - $2.05
+                </Text>
+                </View>
+                
+                <View style = {styles.menuRowContainer}>
+                <TouchableHighlight
+                onPress={() => this.entreePick('chicken tenders')}
+                >
+                <View style = {styles.normalBox}>
+                <Image
+                        source={{ uri: 'https://www.healthyseasonalrecipes.com/wp-content/uploads/2016/01/healthy-baked-chicken-tenders-22-7.jpg' }}
+                        style={{ height: 80, width: 80 }}
+                    />
+                </View>
+                </TouchableHighlight>
+                <Text style = {styles.textTitle}>
+                Chicken Tenders - $3.39
+                </Text>
+                </View>
+                
+                <View style = {styles.menuRowContainer}>
+                <TouchableHighlight
+                onPress={() => this.entreePick('salad')}
+                >
+                
+                <View style = {styles.noneBox}>
+                <Text style = {styles.noneTextTitle}>
+                Salad
+                </Text>
+                </View>
+                </TouchableHighlight>
+                </View>
+                </View>
+                </View>
+                </ImageBackground>
+                </View>
+                
+                {/*salad screen*/}
+                    <View style = {{display: this.state.saladScreen}}>
+                    <ImageBackground
+                    style={styles.background}
+                    source={{ uri: 'https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?w=2000' }}
+                >
+                    <View style = {styles.titleContainer}>
+                    <Text style = {styles.textOption}>
+                    Salad
+                    </Text>
+                    </View>
+                    <View style = {styles.contentContainer2}>
+                <View style = {styles.rowContainer}>
+                <View style = {styles.menuRowContainer}>
+                <TouchableHighlight
+                onPress={() => this.saladPick('greek')}
+                >
+                <View style = {styles.normalBox}>
+                    <Image
+                        source={{ uri: 'https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2018/08/Greek-Salad.jpg' }}
+                        style={{ height: 80, width: 80 }}
+                    />
+                </View>
+                </TouchableHighlight>
+                <Text style = {styles.textTitle}>
+                Greek - $6.59
+                </Text>
+                </View>
+                
+                <View style = {styles.menuRowContainer}>
+                <TouchableHighlight
+                onPress={() => this.saladPick('caesar')}
+                >
+                <View style = {styles.normalBox}>
+                <Image
+                        source={{ uri: 'https://www.thespruceeats.com/thmb/Z6IWF7c9zywuU9maSIimGLbHoI4=/3000x2000/filters:fill(auto,1)/classic-caesar-salad-recipe-996054-Hero_01-33c94cc8b8e841ee8f2a815816a0af95.jpg' }}
+                        style={{ height: 80, width: 80 }}
+                    />
+                </View>
+                </TouchableHighlight>
+                <Text style = {styles.textTitle}>
+                Caesar - $5.39
+                </Text>
+                </View>
+                
+                <View style = {styles.menuRowContainer}>
+                <TouchableHighlight
+                onPress={() => this.saladPick('wedge')}
+                >
+                <View style = {styles.normalBox}>
+                <Image
+                        source={{ uri: 'https://tastesbetterfromscratch.com/wp-content/uploads/2020/08/Classic-Wedge-Salad-Square.jpg' }}
+                        style={{ height: 80, width: 80 }}
+                    />
+                </View>
+                </TouchableHighlight>
+                <Text style = {styles.textTitle}>
+                Wedge - $5.75
+                </Text>
+                </View>
+                
+                <View style = {styles.menuRowContainer}>
+                <TouchableHighlight
+                onPress={() => this.saladPick('cobb')}
+                >
+                
+                <View style = {styles.normalBox}>
+                <Image
+                        source={{ uri: 'https://amandascookin.com/wp-content/uploads/2019/08/cobb-salad-680.jpg' }}
+                        style={{ height: 80, width: 80 }}
+                    />
+                </View>
+                </TouchableHighlight>
+                <Text style = {styles.textTitle}>
+                Cobb - $6.99
+                </Text>
+                </View>
+                </View>
+                </View>
+                </ImageBackground>
+                </View>
+                
+                {/*side screen*/}
+                    <ScrollView style = {{display: this.state.sideScreen}}>
+                    <ImageBackground
+                    style={styles.background}
+                    source={{ uri: 'https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?w=2000' }}
+                >
+                    <View style = {styles.titleContainer}>
+                    <Text style = {styles.textOption}>
+                    Side
+                    </Text>
+                    </View>
+                    <View style = {styles.contentContainer2}>
+                <View style = {styles.rowContainer}>
+                <View style = {styles.menuRowContainer}>
+                <TouchableHighlight
+                onPress={() => this.sidePick('fries')}
+                >
+                <View style = {styles.normalBox}>
+                    <Image
+                        source={{ uri: 'https://www.vegrecipesofindia.com/wp-content/uploads/2021/04/french-fries-recipe-3.jpg' }}
+                        style={{ height: 80, width: 80 }}
+                    />
+                </View>
+                </TouchableHighlight>
+                <Text style = {styles.textTitle}>
+                Fries - $1.65
+                </Text>
+                </View>
+                
+                <View style = {styles.menuRowContainer}>
+                <TouchableHighlight
+                onPress={() => this.sidePick('fruit cup')}
+                >
+                <View style = {styles.normalBox}>
+                <Image
+                        source={{ uri: 'https://resources.ediblearrangements.com/resources/en-us/i/a/16oz_FruitSalad_PineGrapeHdewStrw_410x4105.jpg' }}
+                        style={{ height: 80, width: 80 }}
+                    />
+                </View>
+                </TouchableHighlight>
+                <Text style = {styles.textTitle}>
+                Fruit Cup - $1.85
+                </Text>
+                </View>
+                
+                <View style = {styles.menuRowContainer}>
+                <TouchableHighlight
+                onPress={() => this.sidePick('tater tots')}
+                >
+                <View style = {styles.normalBox}>
+                <Image
+                        source={{ uri: 'https://recipesfromapantry.com/wp-content/uploads/2021/09/frozen-tater-tots-in-air-fryer-35-of-40.jpg' }}
+                        style={{ height: 80, width: 80 }}
+                    />
+                </View>
+                </TouchableHighlight>
+                <Text style = {styles.textTitle}>
+                Tater Tots - $1.69
+                </Text>
+                </View>
+                
+                <View style = {styles.menuRowContainer}>
+                <TouchableHighlight
+                onPress={() => this.sidePick('mac n cheese')}
+                >
+                
+                <View style = {styles.normalBox}>
+                <Image
+                        source={{ uri: 'https://kubrick.htvapps.com/htv-prod-media.s3.amazonaws.com/images/qtmaccheese-1610589971.jpg?crop=1.00xw:0.883xh;0,0.0611xh&resize=1200:*' }}
+                        style={{ height: 80, width: 80 }}
+                    />
+                </View>
+                </TouchableHighlight>
+                <Text style = {styles.textTitle}>
+                Mac 'n Cheese - $2.11
+                </Text>
+                </View>
+                
+                <View style = {styles.menuRowContainer}>
+                <TouchableHighlight
+                onPress={() => this.sidePick('none')}
+                >
+                
+                <View style = {styles.noneBox}>
+                <Text style = {styles.noneTextTitle}>
+                None
+                </Text>
+                </View>
+                </TouchableHighlight>
+                </View>
+                </View>
+                </View>
+                </ImageBackground>
+                </ScrollView>
+                
+                {/*drink screen*/}
+                    <View style = {{display: this.state.drinkScreen}}>
+                    <ImageBackground
+                    style={styles.background}
+                    source={{ uri: 'https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?w=2000' }}
+                >
+                    <View style = {styles.titleContainer}>
+                    <Text style = {styles.textOption}>
+                    Drink
+                    </Text>
+                    </View>
+                    <View style = {styles.contentContainer2}>
+                <View style = {styles.rowContainer}>
+                <View style = {styles.menuRowContainer}>
+                <TouchableHighlight
+                onPress={() => this.drinkPick('water')}
+                >
+                <View style = {styles.normalBox}>
+                    <Image
+                        source={{ uri: 'https://s7d1.scene7.com/is/image/mcdonalds/t-mcdonalds-Dasani-Water:1-3-product-tile-desktop?wid=765&hei=472&dpr=off' }}
+                        style={{ height: 80, width: 80 }}
+                    />
+                </View>
+                </TouchableHighlight>
+                <Text style = {styles.textTitle}>
+                Water - $0.99
+                </Text>
+                </View>
+                
+                <View style = {styles.menuRowContainer}>
+                <TouchableHighlight
+                onPress={() => this.drinkPick('soda')}
+                >
+                <View style = {styles.normalBox}>
+                <Image
+                        source={{ uri: 'https://media.officedepot.com/images/f_auto,q_auto,e_sharpen,h_450/products/208206/208206_p/208206' }}
+                        style={{ height: 80, width: 80 }}
+                    />
+                </View>
+                </TouchableHighlight>
+                <Text style = {styles.textTitle}>
+                Coca-Cola - $1.29
+                </Text>
+                </View>
+                
+                <View style = {styles.menuRowContainer}>
+                <TouchableHighlight
+                onPress={() => this.drinkPick('tea')}
+                >
+                <View style = {styles.normalBox}>
+                <Image
+                        source={{ uri: 'https://s7d1.scene7.com/is/image/mcdonalds/t-mcdonalds-Iced-Tea-Large-unsweetened:1-3-product-tile-desktop?wid=765&hei=472&dpr=off' }}
+                        style={{ height: 80, width: 80 }}
+                    />
+                </View>
+                </TouchableHighlight>
+                <Text style = {styles.textTitle}>
+                Sweet Tea - $1.39
+                </Text>
+                </View>
+                
+                <View style = {styles.menuRowContainer}>
+                <TouchableHighlight
+                onPress={() => this.drinkPick('lemonade')}
+                >
+                
+                <View style = {styles.normalBox}>
+                <Image
+                        source={{ uri: 'https://www.monin.com/media/catalog/product/cache/086f110b92ec89cebc323a4780ab42bd/5/8/584248dd-b3ad-412a-896e-033dd2178314-1.png' }}
+                        style={{ height: 80, width: 80 }}
+                    />
+                </View>
+                </TouchableHighlight>
+                <Text style = {styles.textTitle}>
+                Lemonade - $1.65
+                </Text>
+                </View>
+                </View>
+                </View>
+                </ImageBackground>
+                </View>
+                
+                {/*sauce screen*/}
+                    <ScrollView style = {{display: this.state.sauceScreen}}>
+                    <ImageBackground
+                    style={styles.background}
+                    source={{ uri: 'https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?w=2000' }}
+                >
+                    <View style = {styles.titleContainer}>
+                    <Text style = {styles.textOption}>
+                    Sauce
+                    </Text>
+                    </View>
+                    <View style = {styles.contentContainer2}>
+                <View style = {styles.rowContainer}>
+                <View style = {styles.menuRowContainer}>
+                <TouchableHighlight
+                onPress={() => this.saucePick('ketchup')}
+                >
+                <View style = {styles.normalBox}>
+                    <Image
+                        source={{ uri: 'https://cleangreensimple.com/wp-content/uploads/vegan-ketchup-square.jpg' }}
+                        style={{ height: 80, width: 80 }}
+                    />
+                </View>
+                </TouchableHighlight>
+                <Text style = {styles.textTitle}>
+                Ketchup - $0.50
+                </Text>
+                </View>
+                
+                <View style = {styles.menuRowContainer}>
+                <TouchableHighlight
+                onPress={() => this.saucePick('mayo')}
+                >
+                <View style = {styles.normalBox}>
+                <Image
+                        source={{ uri: 'https://thumbs.dreamstime.com/b/small-glass-mayonnaise-cup-delicious-mayonnaise-plastic-cup-white-background-177853715.jpg' }}
+                        style={{ height: 80, width: 80 }}
+                    />
+                </View>
+                </TouchableHighlight>
+                <Text style = {styles.textTitle}>
+                Mayonaise - $1.10
+                </Text>
+                </View>
+                
+                <View style = {styles.menuRowContainer}>
+                <TouchableHighlight
+                onPress={() => this.saucePick('mustard')}
+                >
+                <View style = {styles.normalBox}>
+                <Image
+                        source={{ uri: 'https://leitesculinaria.com/wp-content/uploads/2021/04/homemade-yellow-mustard-fp.jpg' }}
+                        style={{ height: 80, width: 80 }}
+                    />
+                </View>
+                </TouchableHighlight>
+                <Text style = {styles.textTitle}>
+                Mustard - $0.80
+                </Text>
+                </View>
+                
+                <View style = {styles.menuRowContainer}>
+                <TouchableHighlight
+                onPress={() => this.saucePick('homemade')}
+                >
+                
+                <View style = {styles.normalBox}>
+                <Image
+                        source={{ uri: 'https://buildyourbite.com/wp-content/uploads/2018/12/chick-fil-a-sauce-2.jpg' }}
+                        style={{ height: 80, width: 80 }}
+                    />
+                </View>
+                </TouchableHighlight>
+                <Text style = {styles.textTitle}>
+                McHuggins Sauce - $1.25
+                </Text>
+                </View>
+                
+                <View style = {styles.menuRowContainer}>
+                <TouchableHighlight
+                onPress={() => this.saucePick('none')}
+                >
+                
+                <View style = {styles.noneBox}>
+                <Text style = {styles.noneTextTitle}>
+                None
+                </Text>
+                </View>
+                </TouchableHighlight>
+                </View>
+                </View>
+                </View>
+                </ImageBackground>
+                </ScrollView>
+                
+                {/*dessert screen*/}
+                    <View style = {{display: this.state.dessertScreen}}>
+                    <ImageBackground
+                    style={styles.background}
+                    source={{ uri: 'https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?w=2000' }}
+                >
+                    <View style = {styles.titleContainer}>
+                    <Text style = {styles.textOption}>
+                    Dessert
+                    </Text>
+                    </View>
+                    <View style = {styles.contentContainer2}>
+                <View style = {styles.rowContainer}>
+                <View style = {styles.menuRowContainer}>
+                <TouchableHighlight
+                onPress={() => this.dessertPick('cookie')}
+                >
+                <View style = {styles.normalBox}>
+                    <Image
+                        source={{ uri: 'https://assets.bonappetit.com/photos/5ca534485e96521ff23b382b/5:4/w_3375,h_2700,c_limit/chocolate-chip-cookie.jpg' }}
+                        style={{ height: 80, width: 80 }}
+                    />
+                </View>
+                </TouchableHighlight>
+                <Text style = {styles.textTitle}>
+                Chocolate Chip Cookie - $1.19
+                </Text>
+                </View>
+                
+                <View style = {styles.menuRowContainer}>
+                <TouchableHighlight
+                onPress={() => this.dessertPick('ice cream')}
+                >
+                <View style = {styles.normalBox}>
+                <Image
+                        source={{ uri: 'https://thumbs.dreamstime.com/b/blank-paper-cup-milk-ice-cream-isolated-over-white-background-43225907.jpg' }}
+                        style={{ height: 80, width: 80 }}
+                    />
+                </View>
+                </TouchableHighlight>
+                <Text style = {styles.textTitle}>
+                Vanilla Ice Cream - $1.78
+                </Text>
+                </View>
+                
+                <View style = {styles.menuRowContainer}>
+                <TouchableHighlight
+                onPress={() => this.dessertPick('none')}
+                >
+                
+                <View style = {styles.noneBox}>
+                <Text style = {styles.noneTextTitle}>
+                None
+                </Text>
+                </View>
+                </TouchableHighlight>
+                </View>
+                </View>
+                </View>
+                </ImageBackground>
+                </View>
+                
+                {/*cart screen*/}
+                    <ScrollView style = {{display: this.state.cartScreen}}>
+                    <ImageBackground
+                    style={styles.background}
+                    source={{ uri: 'https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?w=2000' }}
+                >
+                <View style = {styles.contentContainer}>
+                <View style = {styles.cartTitleContainer}>
+                <Text style = {styles.textOption}>
+                Your Cart
+                </Text>
+                </View>
+                <View style = {styles.cartRowContainer}>
+                <View style = {styles.cartOption}>
+                <Text style = {styles.textTitle}>
+                {this.state.entree}
+                </Text>
+                <Image
+                    source={this.state.entreePic}
+                    style={{ height: 50, width: 50 }}
+                />
+                </View>
+                </View>
+                <View style = {styles.cartRowContainer}>
+                <View style = {styles.cartOption}>
+                <Text style = {styles.textTitle}>
+                {this.state.side}
+                </Text>
+                <Image
+                    source={this.state.sidePic}
+                    style={{ height: 50, width: 50 }}
+                />
+                </View>
+                </View>
+                <View style = {styles.cartRowContainer}>
+                <View style = {styles.cartOption}>
+                <Text style = {styles.textTitle}>
+                {this.state.drink}
+                </Text>
+                <Image
+                    source={this.state.drinkPic}
+                    style={{ height: 50, width: 50 }}
+                />
+                </View>
+                </View>
+                <View style = {styles.cartRowContainer}>
+                <View style = {styles.cartOption}>
+                <Text style = {styles.textTitle}>
+                {this.state.sauce}
+                </Text>
+                <Image
+                    source={this.state.saucePic}
+                    style={{ height: 50, width: 50 }}
+                />
+                </View>
+                </View>
+                <View style = {styles.cartRowContainer}>
+                <View style = {styles.cartOption}>
+                <Text style = {styles.textTitle}>
+                {this.state.dessert}
+                </Text>
+                <Image
+                    source={this.state.dessertPic}
+                    style={{ height: 50, width: 50 }}
+                />
+                </View>
+                </View>
+                <View style = {styles.cartContainer}>
+                <Text style = {styles.textTitle}>
+                Subtotal: ${this.state.total}
+                </Text>
+                <Text style = {styles.textTitle}>
+                Sales Tax: ${(this.state.total * 0.04).toFixed(2)}
+                </Text>
+                <Text style = {styles.textTitle}>
+                Delivery Fee: ${this.state.delivery.toFixed(2)}
+                </Text>
+                <Text style = {styles.textTitle}>
+                Your Total is: ${(this.state.total + (this.state.total *0.04)+(this.state.delivery)).toFixed(2)}
+                </Text>
+                </View>
+                <View style = {styles.cartRowContainer}>
+                <TouchableHighlight style = {styles.buttonBox}
+                onPress={
+                    this.handleOrderPagePress
+                }>
+                <Text style = {styles.textInput}>
+                Complete Order
+                </Text>
+                </TouchableHighlight>
+                </View>
+                </View>
+                </ImageBackground>
+                </ScrollView>
+                
+                {/*order screen*/}
+                    <View style = {{display: this.state.orderScreen}}>
+                    <ImageBackground
+                    style={styles.background}
+                    source={{ uri: 'https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?w=2000' }}
+                >
+                    <View style = {styles.contentContainer1}>
+                <Text style = {styles.title}>
+                Thank You For Your Order of ${this.state.newTotal}!
+                </Text>
+                <TouchableHighlight style = {styles.buttonBox}
+                onPress={
+                    this.handleMenuPagePress
+                }>
+                <Text style = {styles.textInput}>
+                Order Again
+                </Text>
+                </TouchableHighlight>
+                </View>
+                </ImageBackground>
+                </View>
+                
+            </View>
+        );
+    }
+}
+
+const styles = StyleSheet.create({
+    container: {
+        height: deviceHeight,
+        width: deviceWidth,
+    },
+    background: {
+        width: deviceWidth,
+    },
+    contentContainer1: {
+        height: deviceHeight,
+        width: deviceWidth,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    contentContainer2: {
+        height: deviceHeight,
+        width: deviceWidth,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    rowContainer:{
+        height: deviceHeight/7,
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        margin: 20,
+    },
+    menuRowContainer:{
+        height: deviceHeight/8,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        margin: 20,
+    },
+    titleContainer:{
+        height: deviceHeight/16,
+        alignItems: 'center',
+        justifyContent: 'center',
+        margin: 10,
+    },
+    cartTitleContainer:{
+        height: deviceHeight/14,
+        alignItems: 'center',
+        justifyContent: 'center',
+        margin: 15,
+    },
+    cartContainer:{
+        height: deviceHeight/15,
+        alignItems: 'center',
+        justifyContent: 'center',
+        margin: 45,
+    },
+    cartRowContainer:{
+        height: deviceHeight/7,
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row',
+        margin: 10,
+    },
+    normalBox:{
+        height: deviceHeight/6.2,
+        width: deviceWidth/3.5,
+        borderColor: 'blue',
+        borderWidth: 2,
+        alignItems: 'center',
+        justifyContent: 'center',
+        margin: 10,
+    },
+    noneBox:{
+        height: deviceHeight/8,
+        width: deviceWidth/3,
+        backgroundColor: 'blue',
+        borderColor: '#1197ee',
+        borderWidth: 3,
+        alignItems: 'center',
+        justifyContent: 'center',
+        margin: 10,
+    },
+    buttonBox:{
+        height: deviceHeight/10,
+        width: 2*(deviceWidth/3),
+        backgroundColor: 'blue',
+        borderWidth: 3,
+        borderColor: '#1197ee',
+        alignItems: 'center',
+        justifyContent: 'center',
+        margin: 10,
+    },
+    backBox: {
+        height: deviceHeight/15,
+        width: 2*(deviceWidth/7),
+        backgroundColor: 'blue',
+        borderWidth: 2,
+        borderColor: '#1197ee',
+        alignItems: 'center',
+        margin: 5,
+    },
+    textInput:{
+        fontSize: deviceHeight/25,
+        color: '#ffba00',
+        textAlign: 'center',
+        fontWeight: 700,
+    },
+    textTitle:{
+        fontSize: deviceHeight/25,
+        color: 'blue',
+        textAlign: 'center',
+        fontWeight: 700,
+    },
+    noneTextTitle:{
+        fontSize: deviceHeight/25,
+        color: '#ffba00',
+        textAlign: 'center',
+        fontWeight: 700,
+    },
+    textOption:{
+        fontSize: deviceHeight/15,
+        color: 'blue',
+        textAlign: 'center',
+        fontWeight: 700,
+    },
+    title:{
+        fontSize: deviceHeight/10,
+        color: 'blue',
+        textAlign: 'center',
+        margin: 20,
+    },
+    cartOption: {
+        height: deviceHeight/6,
+        width: deviceHeight/2,
+        borderWidth: 2,
+        borderColor:'blue',
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 5,
+    },
+});
